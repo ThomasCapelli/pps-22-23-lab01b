@@ -8,11 +8,11 @@ class LogicsImplTest {
 
     public static final int SIZE = 10;
     public static final Pair<Integer, Integer> PAWN = new Pair<>(1, 2);
-    public static final Pair<Integer, Integer> KNIGHT = new Pair<>(0, 0);
+    private Knight knight = new KnightImpl(new Pair<>(0, 0));
     private Logics logic;
     @BeforeEach
     void setUp() {
-        this.logic = new LogicsImpl(PAWN, KNIGHT, SIZE);
+        this.logic = new LogicsImpl(PAWN, knight, SIZE);
     }
     @Test
     void testHasPawn() {
@@ -20,7 +20,7 @@ class LogicsImplTest {
     }
     @Test
     void testHasKnight() {
-        assertTrue(this.logic.hasKnight(KNIGHT.getX(), KNIGHT.getY()));
+        assertTrue(this.logic.hasKnight(knight.getPosition().getX(), knight.getPosition().getY()));
     }
     @Test
     void testHitException() {
@@ -32,6 +32,7 @@ class LogicsImplTest {
     }
     @Test
     void testHit() {
+        this.knight.setPosition(new Pair<>(PAWN.getX(), PAWN.getY()));
         assertTrue(this.logic.hit(PAWN.getX(),PAWN.getY()));
     }
 }
