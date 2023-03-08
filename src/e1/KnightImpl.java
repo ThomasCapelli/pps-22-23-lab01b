@@ -2,19 +2,19 @@ package e1;
 
 public class KnightImpl implements Knight {
 
-    private Pair<Integer, Integer> position;
+    private Cell position;
 
-    public KnightImpl(Pair<Integer, Integer> initialPosition) {
+    public KnightImpl(Cell initialPosition) {
         this.position = initialPosition;
     }
 
     @Override
-    public Pair<Integer, Integer> getPosition() {
+    public Cell getPosition() {
         return this.position;
     }
 
     @Override
-    public void setPosition(Pair<Integer, Integer> destination) {
+    public void setPosition(Cell destination) {
         this.position = destination;
     }
 }

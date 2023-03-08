@@ -1,7 +1,7 @@
 package e1;
 
 public interface Knight {
-    Pair<Integer, Integer> getPosition();
+    Cell getPosition();
 
-    void setPosition(Pair<Integer, Integer> destination);
+    void setPosition(Cell destination);
 }

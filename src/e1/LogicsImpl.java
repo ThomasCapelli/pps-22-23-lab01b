@@ -3,51 +3,41 @@ package e1;
 import java.util.*;
 
 public class LogicsImpl implements Logics {
-	
-	private final Pair<Integer,Integer> pawn;
-	private Knight knight;
-	private final Random random = new Random();
-	private final int size;
 
-	public LogicsImpl(Pair<Integer, Integer> pawn, final Knight knight, int size) {
-		this.pawn = pawn;
-		this.size = size;
+	private final Board board;
+	private Knight knight = new KnightImpl(new CellImpl(0, 0));
+
+	public LogicsImpl(final Knight knight, final Board board) {
 		this.knight = knight;
+		this.board = board;
 	}
 	 
     public LogicsImpl(int size){
-    	this.size = size;
-        this.pawn = this.randomEmptyPosition();
-        this.knight.setPosition(this.randomEmptyPosition());
-    }
-    
-	private Pair<Integer,Integer> randomEmptyPosition(){
-    	Pair<Integer,Integer> pos = new Pair<>(this.random.nextInt(size),this.random.nextInt(size));
-    	// the recursive call below prevents clash with an existing pawn
-    	return this.pawn!=null && this.pawn.equals(pos) ? randomEmptyPosition() : pos;
+		this.board = new BoardImpl(size);
+        this.knight.setPosition(board.randomEmptyPosition());
     }
     
 	@Override
 	public boolean hit(int row, int col) {
-		if (row<0 || col<0 || row >= this.size || col >= this.size) {
-			throw new IndexOutOfBoundsException();
-		}
+		this.board.isInsideBoard(row, col);
 		// Below a compact way to express allowed moves for the knight
-		Pair<Integer, Integer> knightPosition = this.knight.getPosition();
-		if (knightPosition.getX()!=0 && knightPosition.getY()!=0 && Math.abs(knightPosition.getX())+Math.abs(knightPosition.getY())==3) {
-			this.knight.setPosition(new Pair<>(row,col));
-			return this.pawn.equals(this.knight.getPosition());
+		Cell knightPosition = this.knight.getPosition();
+		int x = row - knightPosition.getX();
+		int y = col - knightPosition.getY();
+		if (x != 0 && y != 0
+				&& Math.abs(x)+Math.abs(y)==3) {
+			this.knight.setPosition(new CellImpl(row,col));
+			return this.knight.getPosition().equals(this.board.getPawn());
 		}
 		return false;
 	}
-
 	@Override
-	public boolean hasKnight(int row, int col) {
-		return this.knight.getPosition().equals(new Pair<>(row,col));
+	public boolean hasKnight(Integer row, Integer col) {
+		return this.knight.getPosition().equals(new CellImpl(row, col));
 	}
-
 	@Override
 	public boolean hasPawn(int row, int col) {
-		return this.pawn.equals(new Pair<>(row,col));
+		return this.board.getPawn().equals(new CellImpl(row, col));
 	}
+
 }

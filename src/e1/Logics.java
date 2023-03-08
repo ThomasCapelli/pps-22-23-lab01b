@@ -16,7 +16,7 @@ public interface Logics{
      * @param col
      * @return whether position row,col has the knight
      */
-    boolean hasKnight(int row, int col);
+    boolean hasKnight(Integer row, Integer col);
     
     /**
      * @param row

@@ -7,22 +7,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class KnightTest {
 
-    public static final Pair<Integer, Integer> INITIAL_POSITION = new Pair<>(0, 0);
-    public static final Pair<Integer, Integer> DESTINATION = new Pair<>(4, 4);
+    private final Cell initialPosition = new CellImpl(0, 0);
+    private final Cell destination = new CellImpl(4, 4);
     private Knight knight;
     @BeforeEach
     void setUp() {
-        this.knight = new KnightImpl(INITIAL_POSITION);
+        this.knight = new KnightImpl(initialPosition);
     }
 
     @Test
     void testInitialPosition() {
-        assertEquals(INITIAL_POSITION, this.knight.getPosition());
+        assertEquals(initialPosition, this.knight.getPosition());
     }
 
     @Test
     void testSetPosition() {
-        this.knight.setPosition(DESTINATION);
-        assertEquals(DESTINATION, this.knight.getPosition());
+        this.knight.setPosition(destination);
+        assertEquals(destination, this.knight.getPosition());
     }
 }

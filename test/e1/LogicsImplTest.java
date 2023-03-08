@@ -7,20 +7,23 @@ import static org.junit.jupiter.api.Assertions.*;
 class LogicsImplTest {
 
     public static final int SIZE = 10;
-    public static final Pair<Integer, Integer> PAWN = new Pair<>(1, 2);
-    private Knight knight = new KnightImpl(new Pair<>(0, 0));
+    public static final Cell PAWN = new CellImpl(1, 2);
+    public static final Knight KNIGHT = new KnightImpl(new CellImpl(0, 0));
+    public static Board BOARD;
     private Logics logic;
     @BeforeEach
     void setUp() {
-        this.logic = new LogicsImpl(PAWN, knight, SIZE);
+        BOARD = new BoardImpl(SIZE);
+        this.logic = new LogicsImpl(KNIGHT, BOARD);
     }
     @Test
     void testHasPawn() {
+        BOARD.setPawnPosition(PAWN);
         assertTrue(this.logic.hasPawn(PAWN.getX(), PAWN.getY()));
     }
     @Test
     void testHasKnight() {
-        assertTrue(this.logic.hasKnight(knight.getPosition().getX(), knight.getPosition().getY()));
+        assertTrue(this.logic.hasKnight(KNIGHT.getPosition().getX(), KNIGHT.getPosition().getY()));
     }
     @Test
     void testHitException() {
@@ -32,7 +35,7 @@ class LogicsImplTest {
     }
     @Test
     void testHit() {
-        this.knight.setPosition(new Pair<>(PAWN.getX(), PAWN.getY()));
-        assertTrue(this.logic.hit(PAWN.getX(),PAWN.getY()));
+        BOARD.setPawnPosition(PAWN);
+        assertTrue(this.logic.hit(PAWN.getX(), PAWN.getY()));
     }
 }
