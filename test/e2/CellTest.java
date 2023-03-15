@@ -37,9 +37,5 @@ class CellTest {
         this.cell.setCell(DESTINATION_CELL.getX(), DESTINATION_CELL.getY());
         assertEquals(DESTINATION_CELL.getY(), this.cell.getY());
     }
-    @Test
-    void testGetAdjacentCells() {
-        assertEquals(Set.of(new CellImpl(0, 1), new CellImpl(1, 0), new CellImpl(1, 1)), this.cell.getAdjacentCells());
-    }
 
 }

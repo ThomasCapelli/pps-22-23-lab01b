@@ -13,6 +13,4 @@ public interface Cell {
 
     Integer getY();
 
-    Set<Cell> getAdjacentCells();
-
 }

@@ -1,5 +1,6 @@
 package e2;
 
+import e1.Cell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,6 @@ class GridTest {
     @Test
     void testSize() {
         assertEquals(BOARD_SIZE, this.grid.size());
-        assertEquals(BOARD_SIZE * BOARD_SIZE, this.grid.getCellCount());
     }
 
     @Test
@@ -31,5 +31,18 @@ class GridTest {
     @Test
     void testHasMine() {
         assertFalse(this.grid.hasMine(new CellImpl(0, 0)));
+    }
+    @Test
+    void testSetCellType() {
+        this.grid.setCellType(new CellImpl(0, 0), CellType.CLICKED);
+        assertEquals(CellType.CLICKED,this.grid.getCellType(new CellImpl(0,0)));
+    }
+    @Test
+    void testAdjacentMines() {
+        assertEquals(0, this.grid.getAdjacentMinesCount(new CellImpl(0, 0)));
+    }
+    @Test
+    void testExpandGrid() {
+        this.grid.expandGrid(new CellImpl(0, 0));
     }
 }
